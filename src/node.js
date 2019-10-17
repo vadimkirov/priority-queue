@@ -42,7 +42,6 @@ class Node {
 		this.data = null;
 		this.priority = null;
 		this.parent = null;
-
 		this.left = null;
 		this.right = null;
 	}
@@ -88,10 +87,12 @@ class Node {
 
 			this.appendChild(oldParent);
 
-			this.parent = parentParent;  //
+			this.parent = parentParent;
 
-			if(null !== parentParent){parentParent.appendChild(this);}
-			 //
+			if(null !== parentParent){
+				parentParent.appendChild(this);
+			}
+
 			if(null !== oldParentRightChild){
 				this.appendChild(oldParentRightChild);
 				oldParent.left = oldChildLeft;
@@ -103,33 +104,3 @@ class Node {
 }
 
 module.exports = Node;
-//
-// const root = new Node(42, 15);
-// const left = new Node(13, 42);
-// const right = new Node(0, 1);
-// const childOfLeft = new Node(0, 15);
-//
-// let rt = root;
-// let r = right;
-// let l = left;
-// let chL = childOfLeft;
-//
-// root.appendChild(left);
-// root.appendChild(right);
-// left.appendChild(childOfLeft);
-//
-// left.swapWithParent();
-//
-// // expect(left.right).to.equal(right);
-// let ttt = ((left.right)===(right));
-// let yyy = ttt;
-//
-// // expect(left.left).to.equal(root);
-// ttt= ((left.left)===(root));
-// yyy = ttt;
-//
-// // expect(root.left).to.equal(childOfLeft);
-//
-// ttt = ((rt.left)===(chL));
-// yyy = ttt;
-// let uuuuu = yyy;
