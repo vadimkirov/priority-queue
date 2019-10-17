@@ -53,9 +53,11 @@ class Node {
 		}else{
 
 			const oldParent = this.parent;
-			const oldParentLeftChild = oldParent.left;  //
-			const oldParentRightChild = oldParent.right;  //
+			const oldParentLeftChild = oldParent.left;
+			const oldParentRightChild = oldParent.right;
 			const oldChild = this;
+			const oldChildLeft = this.left;
+			const oldChildRight = this.right;
 			const oldParentData = this.parent.data;
 			const oldParentPriority = this.parent.priority;
 			const newParentData = this.data;
@@ -66,51 +68,68 @@ class Node {
 				parentParent.removeChild(oldParent);
 			}
 
-			if(null !== this.parent) {
+
 				this.parent.data = newParentData;
 				this.parent.priority = newParentPriority;
 
 				this.parent.parent = oldChild;
 
 				this.parent.removeChild(this);
-			}
+
+			this.data = oldParentData;
+			this.priority = oldParentPriority;
+			this.left = null;
+			this.right = null;
 
 			if(null !== oldParentRightChild){
 				oldParentLeftChild.parent = this;
+				oldParentRightChild.parent = this;
 			}
-			this.data = oldParentData;
-			this.priority = oldParentPriority;
+
 			this.appendChild(oldParent);
-			if(null !== parentParent){
-				this.parent = parentParent;
-			}
+
+			this.parent = parentParent;  //
 
 			if(null !== parentParent){parentParent.appendChild(this);}
-
+			 //
+			if(null !== oldParentRightChild){
+				this.appendChild(oldParentRightChild);
+				oldParent.left = oldChildLeft;
+				oldParent.right = oldChildRight;
+			}
 
 		}
 	}
 }
 
 module.exports = Node;
-
 //
-// const root = new Node(1, 2);
-// const left = new Node(3, 4);
-// const right = new Node(5, 6);
+// const root = new Node(42, 15);
+// const left = new Node(13, 42);
+// const right = new Node(0, 1);
+// const childOfLeft = new Node(0, 15);
 //
 // let rt = root;
-// let l = left;
 // let r = right;
+// let l = left;
+// let chL = childOfLeft;
 //
-// rt.appendChild(l);
-// rt.appendChild(r);
+// root.appendChild(left);
+// root.appendChild(right);
+// left.appendChild(childOfLeft);
 //
-// r.swapWithParent();
+// left.swapWithParent();
 //
-// // expect(l.parent).to.equal(r);
-// let jjj = ((l.parent) === r);
-// //
-// // //
-// yyy =jjj;
-// let kk = "node";
+// // expect(left.right).to.equal(right);
+// let ttt = ((left.right)===(right));
+// let yyy = ttt;
+//
+// // expect(left.left).to.equal(root);
+// ttt= ((left.left)===(root));
+// yyy = ttt;
+//
+// // expect(root.left).to.equal(childOfLeft);
+//
+// ttt = ((rt.left)===(chL));
+// yyy = ttt;
+// let uuuuu = yyy;
