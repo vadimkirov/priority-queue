@@ -53,6 +53,8 @@ class Node {
 		}else{
 
 			const oldParent = this.parent;
+			const oldParentLeftChild = oldParent.left;  //
+			const oldParentRightChild = oldParent.right;  //
 			const oldChild = this;
 			const oldParentData = this.parent.data;
 			const oldParentPriority = this.parent.priority;
@@ -60,15 +62,22 @@ class Node {
 			const newParentPriority = this.priority;
 			const parentParent = this.parent.parent;
 
-			if(null !== parentParent){this.parent.parent.removeChild(oldParent);}
+			if(null !== parentParent){
+				parentParent.removeChild(oldParent);
+			}
 
-			this.parent.data = newParentData;
-			this.parent.priority = newParentPriority;
+			if(null !== this.parent) {
+				this.parent.data = newParentData;
+				this.parent.priority = newParentPriority;
 
-			this.parent.parent = oldChild;
+				this.parent.parent = oldChild;
 
-			this.parent.removeChild(this);
+				this.parent.removeChild(this);
+			}
 
+			if(null !== oldParentRightChild){
+				oldParentLeftChild.parent = this;
+			}
 			this.data = oldParentData;
 			this.priority = oldParentPriority;
 			this.appendChild(oldParent);
@@ -76,12 +85,7 @@ class Node {
 				this.parent = parentParent;
 			}
 
-
 			if(null !== parentParent){parentParent.appendChild(this);}
-
-
-
-
 
 
 		}
@@ -91,21 +95,22 @@ class Node {
 module.exports = Node;
 
 //
-// const parent = new Node(15, 42);
-// const child = new Node(42, 15);
+// const root = new Node(1, 2);
+// const left = new Node(3, 4);
+// const right = new Node(5, 6);
 //
-// parent.appendChild(child);
-// child.swapWithParent();
+// let rt = root;
+// let l = left;
+// let r = right;
 //
-// let p = parent;
-// let ch = child;
+// rt.appendChild(l);
+// rt.appendChild(r);
 //
-// // expect(parent.parent).to.equal(child);
-// let hhh = ((p.parent) === ch);
-//  let yyy = hhh;
+// r.swapWithParent();
+//
+// // expect(l.parent).to.equal(r);
+// let jjj = ((l.parent) === r);
 // //
-// // let jjj = ((p.parent) === ch);
-// //
-// //
-// // yyy =jjj;
-//   let kk = "node";
+// // //
+// yyy =jjj;
+// let kk = "node";
