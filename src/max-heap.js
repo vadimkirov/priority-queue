@@ -41,7 +41,7 @@ class MaxHeap {
 	}
 
 	size() {
-		return this.parentNodes.length;
+		return this.length;
 	}
 
 	isEmpty() {
@@ -75,10 +75,25 @@ class MaxHeap {
 	}
 
 	shiftNodeUp(node) {
-        while ( null !== node.parent && node.priority > node.parent.priority){
-            node.swapWithParent();
-        }
-		
+		// const nodeData = node.data;
+		// const nodePriority = node.priority;
+		// for(let i = 0; i<this.parentNodes.length; i++)
+		// {
+		// 	let tempNode = this.parentNodes[i];
+		// 	if(tempNode.data === nodeData && tempNode.priority === nodePriority) {
+		// 		while (null !== tempNode.parent && nodePriority > tempNode.parent.priority) {
+		// 			tempNode.swapWithParent();
+		// 		}
+		// 	}
+		// }
+
+		while (null !== node.parent && node.priority > node.parent.priority) {
+			node.swapWithParent();
+			if(null === node.parent){
+				this.root = node;
+			}
+		}
+
 	}
 
 	shiftNodeDown(node) {
@@ -97,64 +112,31 @@ class MaxHeap {
 }
 
 module.exports = MaxHeap;
-// let h = new MaxHeap();
-// let rez;
 //
-// const nodes = [
-// 	new Node(0, 0),
-// 	new Node(1, 1),
-// 	new Node(2, 2),
-// 	new Node(3, 3),
-// 	new Node(4, 4),
-// 	new Node(5, 5),
-// 	new Node(6, 6),
+// let h;
+// h = new MaxHeap();
+//
+// h.root = new Node(0, 10);
+// h.root.appendChild(new Node(1, 5));
+// h.root.appendChild(new Node(2, 7));
+// h.root.left.appendChild(new Node(3, 20));
+//
+// /**
+//  10                       20
+//  /  \                     /  \
+//  5    7  - shift up ->   10   7
+//  /                        /
+//  20                       5
+//  **/
+//
+// h.parentNodes = [
+// 	h.root.left,
+// 	h.root.right,
+// 	h.root.left.left,
 // ];
 //
-// h.insertNode(nodes[0]);
-// // rez =(h.parentNodes[0]); // .to.equal(nodes[0]);
+// const newRoot = h.root.left.left;
+// h.shiftNodeUp(h.root.left.left);
+// let yyy = ((h.root)===(newRoot));
 //
-// h.insertNode(nodes[1]);
-// // rez =(h.parentNodes[0]); //.to.equal(nodes[0]);
-// // rez =(h.parentNodes[1]); //.to.equal(nodes[1]);
-//
-// h.insertNode(nodes[2]);
-// // rez =(h.parentNodes[0]); //.to.equal(nodes[1]);
-// // rez =(h.parentNodes[1]); //.to.equal(nodes[2]);
-//
-// h.insertNode(nodes[3]);
-// // rez =(h.parentNodes[0]); //.to.equal(nodes[1]);
-// // rez =(h.parentNodes[1]); //.to.equal(nodes[2]);
-// // rez =(h.parentNodes[2]); //.to.equal(nodes[3]);
-//
-// h.insertNode(nodes[4]);
-// // rez =(h.parentNodes[1]); //.to.equal(nodes[2]);
-// // rez =(h.parentNodes[2]); //.to.equal(nodes[3]);
-// // rez =(h.parentNodes[3]); //.to.equal(nodes[4]);
-//
-// h.insertNode(nodes[5]);
-// // rez =(h.parentNodes[0]); //.to.equal(nodes[2]);
-// // rez =(h.parentNodes[1]); //.to.equal(nodes[3]);
-// // rez =(h.parentNodes[2]); //.to.equal(nodes[4]);
-// // rez =(h.parentNodes[3]); //.to.equal(nodes[5]);
-//
-// h.insertNode(nodes[6]);
-// // rez =(h.parentNodes[0]); //.to.equal(nodes[3]);
-// // rez =(h.parentNodes[1]); //.to.equal(nodes[4]);
-// // rez =(h.parentNodes[2]); //.to.equal(nodes[5]);
-// // rez =(h.parentNodes[3]); //.to.equal(nodes[6]);
-//
-// //
-// // let rez = (h.root === nodes[0]);
-// // //
-// // let yyy = rez;
-// // rez= (h.root.left)===(nodes[1]);
-// // yyy = rez;
-// // rez=(h.root.right)===(nodes[2]);
-// // yyy = rez;
-// // rez=(h.root.left.left)===(nodes[3]);
-// // yyy = rez;
-// // rez=(h.root.left.right)===(nodes[4]);
-//
-//
-//  yyy = rez;
-// let uuu ='hhhhhhhhh';
+// let uuu = yyy;

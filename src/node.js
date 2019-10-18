@@ -47,59 +47,56 @@ class Node {
 	}
 
 	swapWithParent() {
-		if(null === this.parent){
+		if(null !== this.parent){
+			const
+				oldParent = this.parent,
+				oldParentLeftChild = this.parent.left,
+				oldParentRightChild = this.parent.right,
+				oldParentParent = this.parent.parent,
 
-		}else{
 
-			const oldParent = this.parent;
-			const oldParentLeftChild = oldParent.left;
-			const oldParentRightChild = oldParent.right;
-			const oldChild = this;
-			const oldChildLeft = this.left;
-			const oldChildRight = this.right;
-			const oldParentData = this.parent.data;
-			const oldParentPriority = this.parent.priority;
-			const newParentData = this.data;
-			const newParentPriority = this.priority;
-			const parentParent = this.parent.parent;
+				newParentLeftChild = this.left,
+				newParentRightChild = this.right;
+				// newParentParent = this.parent;
 
-			if(null !== parentParent){
-				parentParent.removeChild(oldParent);
+
+			if(null !== oldParentParent){
+				if(oldParentParent.left === oldParent){
+					oldParentParent.left = this;
+				}else {
+					oldParentParent.right = this;
+				}
 			}
 
+			this.parent.left = null;
+			this.parent.right = null;
+			if(null !== newParentLeftChild) this.parent.appendChild(newParentLeftChild);
+			if(null !== newParentRightChild) this.parent.appendChild(newParentRightChild);
 
-				this.parent.data = newParentData;
-				this.parent.priority = newParentPriority;
-
-				this.parent.parent = oldChild;
-
-				this.parent.removeChild(this);
-
-			this.data = oldParentData;
-			this.priority = oldParentPriority;
 			this.left = null;
+			if(null !==oldParentLeftChild) {
+				if (oldParentLeftChild === this) {
+					this.appendChild(oldParent);
+				} else {
+					this.appendChild(oldParentLeftChild);
+				}
+			}
+
 			this.right = null;
-
 			if(null !== oldParentRightChild){
-				oldParentLeftChild.parent = this;
-				oldParentRightChild.parent = this;
+				if (oldParentRightChild === this){
+					this.appendChild(oldParent);
+				}else {
+					this.appendChild(oldParentRightChild);
+				}
+
 			}
 
-			this.appendChild(oldParent);
+			this.parent = oldParentParent;
 
-			this.parent = parentParent;
-
-			if(null !== parentParent){
-				parentParent.appendChild(this);
-			}
-
-			if(null !== oldParentRightChild){
-				this.appendChild(oldParentRightChild);
-				oldParent.left = oldChildLeft;
-				oldParent.right = oldChildRight;
-			}
 
 		}
+
 	}
 }
 
