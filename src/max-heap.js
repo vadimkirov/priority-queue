@@ -56,8 +56,11 @@ class MaxHeap {
 
 	restoreRootFromLastInsertedNode(detached) {
 	    const lNode = this.parentNodes.pop();
+
 	     this.root = lNode;
 	     this.root.parent = null;
+
+
 	     this.root.left = null;
 	     this.root.right = null;
 
@@ -99,6 +102,7 @@ class MaxHeap {
             this.root.appendChild(detached);
             this.parentNodes[0] = detached;
             this.countSize++;
+            this.parentNodes.unshift(this.root);
         } else {
 
             let parentNodesSizeNeed = Math.ceil((this.countSize + 1) / 2);
@@ -166,7 +170,7 @@ class MaxHeap {
 				this.root = node;
                 // this.parentNodes.shift();
                 for(let i =0; i < this.parentNodes.length; i++) {
-                    if (!changeNode && nodeData === this.parentNodes[i]) {
+                    if (!changeNode && this.parentNodes.length > 2 && nodeData === this.parentNodes[i]) {
                         //this.parentNodes[i] = nodeParen;
                         this.parentNodes.splice(i,1);
                         changeNode = true;
@@ -176,21 +180,26 @@ class MaxHeap {
 			}
 
 
-			for(let i =0; i < this.parentNodes.length; i++){
-			    if(!changeNode && nodeData === this.parentNodes[i]){
-                     this.parentNodes[i]= nodeParen;
+			for(let i =0; i < this.parentNodes.length; i++) {
+                if (!changeNode && nodeData === this.parentNodes[i]) {
+                    this.parentNodes[i] = nodeParen;
 
                     changeNode = true;
+                    break;
 
                 }
-                if(!changeNodeParent && this.parentNodes.length < 2  && nodeParen === this.parentNodes[i]){
+            }
+            for(let i =0; i < this.parentNodes.length; i++) {
+            if(!changeNodeParent && this.parentNodes.length <= 2  && nodeParen === this.parentNodes[i]){
                     this.parentNodes[i]=nodeData;
                     changeNodeParent = true;
+                    break;
                 }
 
 			    if(!changeNodeParent && node !== this.root  && nodeParen === this.parentNodes[i]){
                     this.parentNodes[i]=nodeData;
                     changeNodeParent = true;
+                    break;
                 }
             }
 
@@ -219,14 +228,29 @@ class MaxHeap {
 
 // module.exports = MaxHeap;
 
-const h = new MaxHeap();
-h.push(42, 15);
-h.push(15, 14);
-h.push(0, 16);
-h.push(100, 100);
+ let h = new MaxHeap();
+// /h = new MaxHeap();
 
-let ii = (h.pop())===(100);
-ii= (h.pop())===(0);
-ii= (h.pop())===(42);
-ii= (h.pop())===(15);
-let ooo ='lllllll';
+h.push(42, 15);
+h.push(14, 32);
+h.push(0, 0);
+h.push(14,14);
+h.push(13,13);
+h.push(16,16);
+h.push(12,12);
+
+/**
+ 32                             12
+ /  \                           /  \
+ 15    16   - restoreRoot ->    15   16
+ /  \  /  \                    /  \  /
+ 14  13  0   12                14  13  0
+ **/
+
+const detached = h.detachRoot();
+h.restoreRootFromLastInsertedNode(detached);
+
+let iii=(h.parentNodes.map(n=>n.priority)); //.to.deep.equal([16,14,13,0]);
+
+
+let uu = 'hhh'
