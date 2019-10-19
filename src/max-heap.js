@@ -227,34 +227,36 @@ class MaxHeap {
             if(null === nodePriorityMore.parent) {
                 this.root = nodePriorityMore;
 
-                for(let i =0; i < this.parentNodes.length; i++) {
-                    if (!changeNodeLeaf && this.parentNodes.length > 2 && nodeLeaf === this.parentNodes[i]) {
-                        //this.parentNodes[i] = nodeParen;
-                        this.parentNodes.splice(i,1);
-                        changeNodeLeaf = true;
-
-                    }
+                if (this.parentNodes.length > 2) {
+                    changeNode = true;
                 }
+            }
 
+            let changeNowNotRewrite = -1;
+            for(let i =0; i < this.parentNodes.length; i++) {
 
+                if (!changeNodeLeaf && nodeLeaf === this.parentNodes[i]) {
+                    this.parentNodes[i] = nodeData;
+
+                    changeNodeLeaf = true;
+                    changeNowNotRewrite = i;
+                    break;
+
+                }
+            }
+
+            for(let i =0; i < this.parentNodes.length; i++) {
+                if (!changeNode && nodeData === this.parentNodes[i] && changeNowNotRewrite !== i) {
+                    this.parentNodes[i] = nodeLeaf;
+                    changeNode = true;
+                    break;
+                }
             }
 
 
-            // for(let i =0; i < this.parentNodes.length; i++) {
-            //     if (!changeNode && nodeData === this.parentNodes[i]) {
-            //         this.parentNodes[i] = nodeParen;
-            //
-            //         changeNode = true;
-            //         break;
-            //
-            //     }
-            // }
-            // for(let i =0; i < this.parentNodes.length; i++) {
-            //     if(!changeNodeParent && this.parentNodes.length <= 2  && nodeParen === this.parentNodes[i]){
-            //         this.parentNodes[i]=nodeData;
-            //         changeNodeParent = true;
-            //         break;
-            //     }
+
+
+
             //
             //     if(!changeNodeParent && node !== this.root  && nodeParen === this.parentNodes[i]){
             //         this.parentNodes[i]=nodeData;
@@ -298,34 +300,34 @@ class MaxHeap {
 }
 
 module.exports = MaxHeap;
-
+// //
 // let h;
 // h = new MaxHeap();
+// let newRoot = new Node(20, 20);
+// let newDeepest = new Node(1, 1);
 //
-// h.root = new Node(0, 3);
-// h.root.appendChild(new Node(1, 20));
-// h.root.appendChild(new Node(2, 7));
-// h.root.left.appendChild(new Node(3, 5));
+// h.root = newDeepest;
+// h.root.appendChild(new Node(10, 10));
+// h.root.appendChild(newRoot);
+// h.root.left.appendChild(new Node(5, 5));
+// h.root.left.appendChild(new Node(8, 8));
+// h.root.right.appendChild(new Node(11, 11));
+// h.root.right.appendChild(new Node(6, 6));
+//
+// h.parentNodes = [h.root.left.left, h.root.left.right, h.root.right.left, h.root.right.right];
 //
 // /**
-//  3                        20
-//  /  \                      /  \
-//  20    7  - shift down ->   5    7
-//  /                          /
-//  5                          3
+//  1                             20
+//  /  \                           /  \
+//  10    20   - shiftDown ->      10   11
+//  /  \  /  \                    /  \  /  \
+//  5    8 11  6                   5   8 1   6
 //  **/
 //
-// h.parentNodes = [
-//     h.root.left,
-//     h.root.right,
-//     h.root.left.left,
-// ];
-//
-// const newRoot = h.root.left;
-// const newDeepest = h.root;
-//
 // h.shiftNodeDown(h.root);
+//
 // let yyy = (h.root)===(newRoot);
-// yyy = (h.root.left.left)===(newDeepest);
+// yyy = (h.root.right.left)===(newDeepest);
+// yyy = (h.parentNodes.map(n=>n.priority)) ; //.to.deep.equal([5,8,1,6]);
 //
 // let uu = 'hhh'
