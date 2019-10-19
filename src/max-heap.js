@@ -58,6 +58,7 @@ class MaxHeap {
 	    const lNode = this.parentNodes.pop();
 
 	     this.root = lNode;
+	     this.countSize++;
 	     this.root.parent = null;
 
 
@@ -84,7 +85,7 @@ class MaxHeap {
 
 
 
-       if(this.parentNodes.length > 0 && null !== this.parentNodes[0]){
+       if(this.parentNodes.length > 0 && null !== this.parentNodes[0].parent){
            let leftChild = this.parentNodes[0].parent;
 
            leftChild.parent = null;
@@ -119,7 +120,7 @@ class MaxHeap {
 	}
 
 	size() {
-		return this.countSize;
+		return this.countSize + 1;
 	}
 
 	isEmpty() {
@@ -226,31 +227,31 @@ class MaxHeap {
 
 }
 
-// module.exports = MaxHeap;
-
- let h = new MaxHeap();
-// /h = new MaxHeap();
-
-h.push(42, 15);
-h.push(14, 32);
-h.push(0, 0);
-h.push(14,14);
-h.push(13,13);
-h.push(16,16);
-h.push(12,12);
-
-/**
- 32                             12
- /  \                           /  \
- 15    16   - restoreRoot ->    15   16
- /  \  /  \                    /  \  /
- 14  13  0   12                14  13  0
- **/
-
-const detached = h.detachRoot();
-h.restoreRootFromLastInsertedNode(detached);
-
-let iii=(h.parentNodes.map(n=>n.priority)); //.to.deep.equal([16,14,13,0]);
-
-
-let uu = 'hhh'
+module.exports = MaxHeap;
+//
+//  let h = new MaxHeap();
+// // /h = new MaxHeap();
+//
+// h.push(42, 15);
+// h.push(14, 32);
+// h.push(0, 0);
+// h.push(14,14);
+// h.push(13,13);
+// h.push(16,16);
+// h.push(12,12);
+//
+// /**
+//  32                             12
+//  /  \                           /  \
+//  15    16   - restoreRoot ->    15   16
+//  /  \  /  \                    /  \  /
+//  14  13  0   12                14  13  0
+//  **/
+//
+// const detached = h.detachRoot();
+// h.restoreRootFromLastInsertedNode(detached);
+//
+// let iii=(h.parentNodes.map(n=>n.priority)); //.to.deep.equal([16,14,13,0]);
+//
+//
+// let uu = 'hhh'
