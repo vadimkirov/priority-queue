@@ -1,9 +1,6 @@
 const MaxHeap = require('./max-heap.js');
 
 
-
-
-
 class PriorityQueue {
 
 	constructor(maxSize = 30) {
@@ -17,23 +14,18 @@ class PriorityQueue {
 		if((this.countSize) === (this.maxSize)) {
 			throw new Error('query FULL----??????????????')
 		}
-
-
 		this.heap.push(data, priority);
 		this.countSize++;
-
 	}
+
 
 	shift() {
 		if(this.isEmpty()) {
 			throw new Error('query EMPTY-----------??????????');
 
 		}
-
 		this.countSize--;
 		return null;
-
-
 	}
 
 	size() {
