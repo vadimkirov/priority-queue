@@ -163,7 +163,7 @@ describe('MaxHeap', () => {
 				h.root,
 				h.root.right,
 				h.root.left
-			]
+			];
 
 			h.shiftNodeUp(h.root.left.left);
 
